@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySync - Student Productivity Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="brand-text">
+            <h2>StudySync</h2>
+            <span>Student Dashboard</span>
+          </div>
+        </div>
+        <button class="icon-btn mobile-close-btn" id="closeSidebarBtn" aria-label="Close sidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item active" data-target="dashboard-section">
+            <i class="fa-solid fa-table-columns"></i>
+            <span>Dashboard</span>
+          </li>
+          <li class="nav-item" data-target="tasks-section">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks</span>
+            <span class="badge" id="pendingTaskBadge">0</span>
+          </li>
+          <li class="nav-item" data-target="pomodoro-section">
+            <i class="fa-solid fa-stopwatch"></i>
+            <span>Pomodoro</span>
+          </li>
+          <li class="nav-item" data-target="notes-section">
+            <i class="fa-solid fa-book-bookmark"></i>
+            <span>Notes</span>
+          </li>
+          <li class="nav-item" data-target="analytics-section">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Progress</span>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="avatar" id="avatarLetter">A</div>
+          <div class="user-meta">
+            <span class="user-name" id="sidebarUserName">Student</span>
+            <span class="user-role">Scholar Mode</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-menu-btn" id="openSidebarBtn" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="page-title-group">
+            <h1 id="pageHeading">Student Dashboard</h1>
+            <p class="date-display" id="currentDateDisplay">Tuesday, November 24, 2026</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="live-clock" id="liveClock">17:15:00</div>
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Container -->
+      <div class="content-body">
+        
+        <!-- Welcome Hero Section -->
+        <section class="welcome-banner">
+          <div class="welcome-text">
+            <div class="greeting-badge">
+              <i class="fa-solid fa-sparkles"></i> <span id="greetingTime">Welcome back</span>
+            </div>
+            <h2>Hello, <span class="editable-name" id="displayName" title="Click to edit name" tabindex="0">Student</span> <i class="fa-solid fa-pen-to-square edit-name-icon"></i></h2>
+            <p class="quote-text" id="dailyQuote">"Success is the sum of small efforts, repeated day in and day out."</p>
+          </div>
+          <div class="welcome-metric-pill">
+            <div class="pill-icon"><i class="fa-solid fa-fire"></i></div>
+            <div>
+              <div class="pill-val" id="studyStreakVal">3 Days</div>
+              <div class="pill-label">Study Streak</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- KPI Quick Overview Cards -->
+        <section class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Tasks Completed</span>
+              <div class="metric-icon blue"><i class="fa-solid fa-circle-check"></i></div>
+            </div>
+            <div class="metric-body">
+              <span class="metric-number" id="statsCompletedTasks">0/0</span>
+              <span class="metric-trend" id="statsTaskPercent">0% Done</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill blue" id="taskProgressBar" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Focus Time Today</span>
+              <div class="metric-icon purple"><i class="fa-solid fa-clock"></i></div>
+            </div>
+            <div class="metric-body">
+              <span class="metric-number" id="statsFocusMinutes">0 min</span>
+              <span class="metric-trend text-purple" id="statsPomodoroCount">0 Sessions</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill purple" id="focusProgressBar" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Saved Notes</span>
+              <div class="metric-icon amber"><i class="fa-solid fa-note-sticky"></i></div>
+            </div>
+            <div class="metric-body">
+              <span class="metric-number" id="statsNotesCount">0</span>
+              <span class="metric-trend text-amber">Active Entries</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill amber" style="width: 100%"></div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Productivity Score</span>
+              <div class="metric-icon green"><i class="fa-solid fa-bolt"></i></div>
+            </div>
+            <div class="metric-body">
+              <span class="metric-number" id="statsProductivityScore">85%</span>
+              <span class="metric-trend text-green" id="productivityLevel">High Focus</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill green" id="productivityProgressBar" style="width: 85%"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Dashboard 2-Column Layout -->
+        <div class="dashboard-split">
+          
+          <!-- Left Column: Tasks & Notes -->
+          <div class="content-column left-col">
+            
+            <!-- Tasks Section -->
+            <section class="card-section" id="tasksSectionWrapper">
+              <div class="section-card-header">
+                <div>
+                  <h3 class="section-heading"><i class="fa-solid fa-list-check icon-accent"></i> To-Do List</h3>
+                  <p class="section-subheading">Organize and prioritize your daily assignments</p>
+                </div>
+                <div class="task-filters">
+                  <button class="filter-btn active" data-filter="all">All</button>
+                  <button class="filter-btn" data-filter="active">Active</button>
+                  <button class="filter-btn" data-filter="completed">Done</button>
+                </div>
+              </div>
+
+              <!-- Add Task Form -->
+              <form class="add-task-form" id="addTaskForm">
+                <div class="form-row main-input-row">
+                  <input type="text" id="taskInput" placeholder="What needs to be studied or completed?" required>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Add Task
+                  </button>
+                </div>
+                <div class="form-row options-row">
+                  <div class="select-group">
+                    <label for="taskPriority"><i class="fa-solid fa-flag"></i> Priority:</label>
+                    <select id="taskPriority">
+                      <option value="high">High Priority</option>
+                      <option value="medium" selected>Medium Priority</option>
+                      <option value="low">Low Priority</option>
+                    </select>
+                  </div>
+                  <div class="select-group">
+                    <label for="taskCategory"><i class="fa-solid fa-folder"></i> Category:</label>
+                    <select id="taskCategory">
+                      <option value="assignment">Assignment</option>
+                      <option value="exam">Exam Prep</option>
+                      <option value="reading">Reading</option>
+                      <option value="project">Project</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Task List Container -->
+              <div class="task-list-container">
+                <ul class="task-list" id="taskList">
+                  <!-- Dynamically populated -->
+                </ul>
+                <div class="empty-state" id="emptyTasksState" style="display: none;">
+                  <i class="fa-regular fa-calendar-check"></i>
+                  <p>All tasks completed! Enjoy your free time or add a new goal.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Notes Section -->
+            <section class="card-section" id="notesSectionWrapper">
+              <div class="section-card-header">
+                <div>
+                  <h3 class="section-heading"><i class="fa-solid fa-book-bookmark icon-accent"></i> Quick Study Notes</h3>
+                  <p class="section-subheading">Capture key lecture takeaways, formulas, and references</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="toggleNoteFormBtn">
+                  <i class="fa-solid fa-plus"></i> New Note
+                </button>
+              </div>
+
+              <!-- Create Note Panel -->
+              <div class="note-composer" id="noteComposer">
+                <form id="addNoteForm">
+                  <div class="form-group">
+                    <input type="text" id="noteTitleInput" placeholder="Note Title (e.g., Physics Formulae, Chapter 4)" required>
+                  </div>
+                  <div class="form-group">
+                    <textarea id="noteBodyInput" rows="3" placeholder="Write key points, concepts, or reminders..." required></textarea>
+                  </div>
+                  <div class="composer-actions">
+                    <div class="color-picker-group">
+                      <label>Color Tag:</label>
+                      <div class="color-options">
+                        <label class="color-radio"><input type="radio" name="noteColor" value="blue" checked><span class="dot blue"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="purple"><span class="dot purple"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="green"><span class="dot green"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="amber"><span class="dot amber"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="rose"><span class="dot rose"></span></label>
+                      </div>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-outline btn-sm" id="cancelNoteBtn">Cancel</button>
+                      <button type="submit" class="btn btn-primary btn-sm">Save Note</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Notes Grid -->
+              <div class="notes-grid" id="notesGrid">
+                <!-- Dynamically populated -->
+              </div>
+              <div class="empty-state" id="emptyNotesState" style="display: none;">
+                <i class="fa-regular fa-note-sticky"></i>
+                <p>No notes written yet. Click "+ New Note" to jot down your thoughts.</p>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- Right Column: Pomodoro & Analytics -->
+          <div class="content-column right-col">
+            
+            <!-- Pomodoro Timer Card -->
+            <section class="card-section timer-card" id="pomodoroSectionWrapper">
+              <div class="section-card-header">
+                <div>
+                  <h3 class="section-heading"><i class="fa-solid fa-stopwatch icon-accent"></i> Pomodoro Timer</h3>
+                  <p class="section-subheading">Structured 25-minute study intervals</p>
+                </div>
+                <span class="status-indicator" id="timerStatusPill">Focus Session</span>
+              </div>
+
+              <!-- Mode Selection Tabs -->
+              <div class="timer-mode-tabs">
+                <button class="timer-tab active" data-mode="work" data-time="25">
+                  <i class="fa-solid fa-brain"></i> Focus (25m)
+                </button>
+                <button class="timer-tab" data-mode="short" data-time="5">
+                  <i class="fa-solid fa-mug-hot"></i> Short Break (5m)
+                </button>
+                <button class="timer-tab" data-mode="long" data-time="15">
+                  <i class="fa-solid fa-couch"></i> Long Break (15m)
+                </button>
+              </div>
+
+              <!-- Circular Progress & Digital Display -->
+              <div class="timer-display-wrapper">
+                <svg class="timer-svg" viewBox="0 0 220 220">
+                  <circle class="timer-circle-bg" cx="110" cy="110" r="95"></circle>
+                  <circle class="timer-circle-fg" id="timerProgressCircle" cx="110" cy="110" r="95"></circle>
+                </svg>
+                <div class="timer-digits-box">
+                  <span class="timer-digits" id="timerTime">25:00</span>
+                  <span class="timer-caption" id="timerCaption">Ready to Focus</span>
+                </div>
+              </div>
+
+              <!-- Timer Controls -->
+              <div class="timer-controls">
+                <button class="btn btn-control btn-play" id="timerStartBtn" aria-label="Start Timer">
+                  <i class="fa-solid fa-play"></i> Start
+                </button>
+                <button class="btn btn-control btn-secondary" id="timerPauseBtn" style="display:none;" aria-label="Pause Timer">
+                  <i class="fa-solid fa-pause"></i> Pause
+                </button>
+                <button class="btn btn-control btn-outline" id="timerResetBtn" title="Reset Session" aria-label="Reset Timer">
+                  <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button class="btn btn-control btn-outline" id="timerSkipBtn" title="Skip Session" aria-label="Skip to Next">
+                  <i class="fa-solid fa-forward-step"></i>
+                </button>
+              </div>
+
+              <div class="timer-stats-footer">
+                <div class="timer-stat-chip">
+                  <i class="fa-solid fa-check-double"></i>
+                  <span>Completed: <strong id="completedSessionsCount">0</strong></span>
+                </div>
+                <div class="timer-stat-chip">
+                  <i class="fa-solid fa-hourglass-half"></i>
+                  <span>Target: <strong>4 Sessions</strong></span>
+                </div>
+              </div>
+            </section>
+
+            <!-- Productivity & Progress Tracking Card -->
+            <section class="card-section analytics-card" id="analyticsSectionWrapper">
+              <div class="section-card-header">
+                <div>
+                  <h3 class="section-heading"><i class="fa-solid fa-chart-pie icon-accent"></i> Weekly Activity</h3>
+                  <p class="section-subheading">Your study distribution over this week</p>
+                </div>
+              </div>
+
+              <!-- Visual Mini Bar Chart -->
+              <div class="weekly-chart">
+                <div class="chart-bars">
+                  <div class="bar-col">
+                    <div class="bar-fill" style="height: 45%;"></div>
+                    <span class="bar-day">Mon</span>
+                  </div>
+                  <div class="bar-col">
+                    <div class="bar-fill" style="height: 70%;"></div>
+                    <span class="bar-day">Tue</span>
+                  </div>
+                  <div class="bar-col">
+                    <div class="bar-fill active" style="height: 85%;"></div>
+                    <span class="bar-day">Wed</span>
+                  </div>
+                  <div class="bar-col">
+                    <div class="bar-fill" style="height: 60%;"></div>
+                    <span class="bar-day">Thu</span>
+                  </div>
+                  <div class="bar-col">
+                    <div class="bar-fill" style="height: 90%;"></div>
+                    <span class="bar-day">Fri</span>
+                  </div>
+                  <div class="bar-col">
+                    <div class="bar-fill" style="height: 35%;"></div>
+                    <span class="bar-day">Sat</span>
+                  </div>
+                  <div class="bar-col">
+                    <div class="bar-fill" style="height: 50%;"></div>
+                    <span class="bar-day">Sun</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Productivity Breakdown List -->
+              <div class="analytics-breakdown">
+                <div class="breakdown-row">
+                  <div class="breakdown-info">
+                    <i class="fa-solid fa-circle-dot text-blue"></i>
+                    <span>Task Completion Efficiency</span>
+                  </div>
+                  <span class="breakdown-val" id="analyticsEfficiencyRate">0%</span>
+                </div>
+                <div class="breakdown-row">
+                  <div class="breakdown-info">
+                    <i class="fa-solid fa-circle-dot text-purple"></i>
+                    <span>Target Focus Hours</span>
+                  </div>
+                  <span class="breakdown-val" id="analyticsTotalHours">0.0 / 4.0 hrs</span>
+                </div>
+                <div class="breakdown-row">
+                  <div class="breakdown-info">
+                    <i class="fa-solid fa-circle-dot text-green"></i>
+                    <span>Study Consistency</span>
+                  </div>
+                  <span class="breakdown-val text-green">Optimal</span>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Edit Name Modal -->
+  <div class="modal-backdrop" id="nameModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Change Student Profile Name</h3>
+        <button class="icon-btn" id="closeNameModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="saveNameForm">
+        <div class="modal-body">
+          <label for="studentNameInput">Enter your full name or nickname:</label>
+          <input type="text" id="studentNameInput" maxlength="30" required placeholder="e.g., Alex Johnson">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelNameBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
