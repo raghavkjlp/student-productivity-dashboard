@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudySync - Student Productivity Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="theme-dark">
   <div class="app-layout">
     <!-- Sidebar Navigation -->
@@ -90,15 +93,16 @@
 
       <!-- Scrollable Container -->
       <div class="content-body">
-        
+
         <!-- Welcome Hero Section -->
         <section class="welcome-banner">
           <div class="welcome-text">
             <div class="greeting-badge">
               <i class="fa-solid fa-sparkles"></i> <span id="greetingTime">Welcome back</span>
             </div>
-            <h2>Hello, <span class="editable-name" id="displayName" title="Click to edit name" tabindex="0">Student</span> <i class="fa-solid fa-pen-to-square edit-name-icon"></i></h2>
-            <p class="quote-text" id="dailyQuote">"Success is the sum of small efforts, repeated day in and day out."</p>
+            <h2>Hello, <span class="editable-name" id="displayName" title="Click to edit name"
+                tabindex="0">Student</span> <i class="fa-solid fa-pen-to-square edit-name-icon"></i></h2>
+            <p class="quote-text" id="dailyQuote">"Knowledge is power. Study smart and stay persistent!"</p>
           </div>
           <div class="welcome-metric-pill">
             <div class="pill-icon"><i class="fa-solid fa-fire"></i></div>
@@ -170,10 +174,10 @@
 
         <!-- Main Dashboard 2-Column Layout -->
         <div class="dashboard-split">
-          
+
           <!-- Left Column: Tasks & Notes -->
           <div class="content-column left-col">
-            
+
             <!-- Tasks Section -->
             <section class="card-section" id="tasksSectionWrapper">
               <div class="section-card-header">
@@ -233,7 +237,8 @@
             <section class="card-section" id="notesSectionWrapper">
               <div class="section-card-header">
                 <div>
-                  <h3 class="section-heading"><i class="fa-solid fa-book-bookmark icon-accent"></i> Quick Study Notes</h3>
+                  <h3 class="section-heading"><i class="fa-solid fa-book-bookmark icon-accent"></i> Quick Study Notes
+                  </h3>
                   <p class="section-subheading">Capture key lecture takeaways, formulas, and references</p>
                 </div>
                 <button class="btn btn-secondary btn-sm" id="toggleNoteFormBtn">
@@ -245,20 +250,27 @@
               <div class="note-composer" id="noteComposer">
                 <form id="addNoteForm">
                   <div class="form-group">
-                    <input type="text" id="noteTitleInput" placeholder="Note Title (e.g., Physics Formulae, Chapter 4)" required>
+                    <input type="text" id="noteTitleInput" placeholder="Note Title (e.g., Physics Formulae, Chapter 4)"
+                      required>
                   </div>
                   <div class="form-group">
-                    <textarea id="noteBodyInput" rows="3" placeholder="Write key points, concepts, or reminders..." required></textarea>
+                    <textarea id="noteBodyInput" rows="3" placeholder="Write key points, concepts, or reminders..."
+                      required></textarea>
                   </div>
                   <div class="composer-actions">
                     <div class="color-picker-group">
                       <label>Color Tag:</label>
                       <div class="color-options">
-                        <label class="color-radio"><input type="radio" name="noteColor" value="blue" checked><span class="dot blue"></span></label>
-                        <label class="color-radio"><input type="radio" name="noteColor" value="purple"><span class="dot purple"></span></label>
-                        <label class="color-radio"><input type="radio" name="noteColor" value="green"><span class="dot green"></span></label>
-                        <label class="color-radio"><input type="radio" name="noteColor" value="amber"><span class="dot amber"></span></label>
-                        <label class="color-radio"><input type="radio" name="noteColor" value="rose"><span class="dot rose"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="blue" checked><span
+                            class="dot blue"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="purple"><span
+                            class="dot purple"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="green"><span
+                            class="dot green"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="amber"><span
+                            class="dot amber"></span></label>
+                        <label class="color-radio"><input type="radio" name="noteColor" value="rose"><span
+                            class="dot rose"></span></label>
                       </div>
                     </div>
                     <div class="btn-group">
@@ -283,7 +295,7 @@
 
           <!-- Right Column: Pomodoro & Analytics -->
           <div class="content-column right-col">
-            
+
             <!-- Pomodoro Timer Card -->
             <section class="card-section timer-card" id="pomodoroSectionWrapper">
               <div class="section-card-header">
@@ -324,13 +336,16 @@
                 <button class="btn btn-control btn-play" id="timerStartBtn" aria-label="Start Timer">
                   <i class="fa-solid fa-play"></i> Start
                 </button>
-                <button class="btn btn-control btn-secondary" id="timerPauseBtn" style="display:none;" aria-label="Pause Timer">
+                <button class="btn btn-control btn-secondary" id="timerPauseBtn" style="display:none;"
+                  aria-label="Pause Timer">
                   <i class="fa-solid fa-pause"></i> Pause
                 </button>
-                <button class="btn btn-control btn-outline" id="timerResetBtn" title="Reset Session" aria-label="Reset Timer">
+                <button class="btn btn-control btn-outline" id="timerResetBtn" title="Reset Session"
+                  aria-label="Reset Timer">
                   <i class="fa-solid fa-rotate-left"></i>
                 </button>
-                <button class="btn btn-control btn-outline" id="timerSkipBtn" title="Skip Session" aria-label="Skip to Next">
+                <button class="btn btn-control btn-outline" id="timerSkipBtn" title="Skip Session"
+                  aria-label="Skip to Next">
                   <i class="fa-solid fa-forward-step"></i>
                 </button>
               </div>
@@ -448,4 +463,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
